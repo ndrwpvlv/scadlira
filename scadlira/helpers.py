@@ -1,0 +1,18 @@
+import re
+
+NODES_PATTERNS = [re.compile('\(4/(.*)\)\(5/'), '(5/']
+ELEMENTS_PATTERNS = [re.compile('\(1/(.*)\)\(2/'), '(2/']
+DOFS_PATTERNS = [re.compile('\(5/(.*)\)\(6/'), '(6/']
+
+REPEATER_PATTERN = re.compile('[0-9]+ r [0-9]+ [0-9]+')
+INT_PATTERNT = re.compile('[0-9]+')
+RANGE_PATTERN = re.compile('[0-9]+\-[0-9]+')
+
+HEADER = """( 0/ 1; scadlira/ 2; 5/
+28; 0 1 0  1 0 0  0 0 1; /
+33;M 1 CM 100 T 1 C 1 /
+39;
+1: LOAD 1 ;
+ /
+)
+"""
