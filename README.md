@@ -28,8 +28,8 @@ sudo -H pip3 install git+https://github.com/ndrwpvlv/code_syntax_analyser.git
 from scadlira.converter import ScadModel
 
 filename = 'example.txt'  # Название текстового файла с расчетной моделью SCAD
-model = ScadModel(filename)  # Создаем объект, внутри которого
-model.write_liratxt()
+model = ScadModel(filename)  # Создаем объект, внутри которого производим обработку текстового файла
+model.write_liratxt()  # Отписываем текстовый файл для ЛИРА-САПР
 ```
 
 ### Использование командной строки
