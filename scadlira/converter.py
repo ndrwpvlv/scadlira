@@ -7,8 +7,8 @@ from .helpers import NODES_PATTERNS, ELEMENTS_PATTERNS, DOFS_PATTERNS, REPEATER_
 
 
 class ScadModel:
-    def __init__(self, filname: str):
-        self.filname = filname
+    def __init__(self, filename: str):
+        self.filename = filename
         self.txt = self.readtxt()  # Читаем текст и заменяем повторители
         self.model = {
             'nodes': self.parse_nodes(self.extract_data(*NODES_PATTERNS)),
@@ -19,7 +19,7 @@ class ScadModel:
         }
 
     def readtxt(self):
-        with open(self.filname, 'r') as file:
+        with open(self.filename, 'r') as file:
             txt = file.read().replace('\n', '')
         return self.replace_range(self.replace_repeaters(txt))
 
@@ -40,9 +40,9 @@ class ScadModel:
         return dict(sorted(dofs.items()))
 
     def write_liratxt(self):
-        filname = self.filname.split('.')[0]
-        with open('%s-converted.txt' % filname[:20], 'w') as file:
-            file.write(HEADER.replace('scadlira', filname))  # заголовок
+        filename = self.filename.split('.')[0]
+        with open('%s-converted.txt' % filename[:20], 'w') as file:
+            file.write(HEADER.replace('scadlira', filename))  # заголовок
             file.write('(1/\n')  # узлы
             for line in self.model['elements']:
                 file.write(' '.join(str(item) for item in line) + '/\n')
