@@ -1,8 +1,8 @@
 import re
 
-NODES_PATTERNS = [re.compile('\(4/(.*)\)\(5/'), '(5/']
-ELEMENTS_PATTERNS = [re.compile('\(1/(.*)\)\(2/'), '(2/']
-DOFS_PATTERNS = [re.compile('\(5/(.*)\)\(6/'), '(6/']
+NODES_PATTERN = re.compile('\(4/(.*?)[)]')
+ELEMENTS_PATTERN = re.compile('\(1/(.*?)[)]')
+DOFS_PATTERN = re.compile('\(5/(.*?)[)]')
 
 REPEATER_PATTERN = re.compile('[0-9]+ r [0-9]+ [0-9]+')
 INT_PATTERNT = re.compile('[0-9]+')
