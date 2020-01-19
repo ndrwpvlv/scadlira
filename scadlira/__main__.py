@@ -18,7 +18,7 @@ def args_get() -> dict:
 
 def main():
     args = args_get()
-    print('-----------------\nCODE_SYNTAX_ANALYSER\n-----------------\n')
+    print('-----------------\nSCAD to LIRA-SAPR input file converter\n-----------------\n')
     print('Solution variables:')
     for key in args:
         print('{}: {}'.format(key, args[key]))
