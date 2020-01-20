@@ -81,8 +81,7 @@ class ScadModel:
             data.append(0)
         return data
 
-    @staticmethod
-    def replace_repeaters(string: str) -> str:
+    def replace_repeaters(self, string: str) -> str:
         """
         Метод находит повторители и заменяет их на указанный диапазон
         чисел через пробел.
@@ -90,11 +89,11 @@ class ScadModel:
         """
         match = re.findall(REPEATER_PATTERN, string)
         repeaters = [[int(item) for item in re.findall(INT_PATTERNT, line)] for line in match]
-        match_replace = [[str(x) for x in range(num[0], num[1] + num[2], num[2])] for num in repeaters]
-        return string.translate(dict(zip(match, match_replace)))
+        match_list = [[str(x) for x in range(num[0], num[1] + num[2], num[2])] for num in repeaters]
+        match_replace = [' '.join(line) for line in match_list]
+        return self.translate(string, dict(zip(match, match_replace)))
 
-    @staticmethod
-    def replace_range(string: str) -> str:
+    def replace_range(self, string: str) -> str:
         """
         Метод находит диапазоны целых чисел, к примеру, 100-1000 и заменяет их
         на указанный диапазон чисел через пробел.
@@ -102,5 +101,11 @@ class ScadModel:
         """
         match = re.findall(RANGE_PATTERN, string)
         repeaters = [[int(item) for item in re.findall(INT_PATTERNT, line)] for line in match]
-        match_replace = [[str(x) for x in range(line[0], line[1] + 1)] for line in repeaters]
-        return string.translate(dict(zip(match, match_replace)))
+        match_list = [[str(x) for x in range(line[0], line[1] + 1)] for line in repeaters]
+        match_replace = [' '.join(line) for line in match_list]
+        return self.translate(string, dict(zip(match, match_replace)))
+
+    @staticmethod
+    def translate(string: str, replace: dict):
+        pattern = re.compile("|".join([re.escape(k) for k in sorted(replace, key=len, reverse=True)]), flags=re.DOTALL)
+        return pattern.sub(lambda x: replace[x.group(0)], string)
